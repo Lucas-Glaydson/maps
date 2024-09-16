@@ -25,4 +25,10 @@ public class MapService {
     public List<MapResponseDTO> getAllMaps(){
         return MapFactory.convertListToDTOList(mapRepository.findAll());
     }
+
+    public String deleteMap(String id){
+        mapRepository.deleteById(id);
+
+        return "Map deleted";
+    }
 }

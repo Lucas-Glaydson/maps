@@ -28,4 +28,9 @@ public class MapController {
     public ResponseEntity<List<MapResponseDTO>> getMaps() {
         return ResponseEntity.ok(mapService.getAllMaps());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteMap(@PathVariable("id") String id) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(mapService.deleteMap(id));
+    }
 }
