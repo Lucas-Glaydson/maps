@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class MapFactory {
     public static MapResponseDTO convertMapToDTO(Map map) {
-        return new MapResponseDTO(map.getName(), map.getDescription(), map.getPopulation(), map.getSize());
+        return new MapResponseDTO(map.getId(), map.getName(), map.getDescription(), map.getPopulation(), map.getSize());
     }
 
     public static Map convertDTOToMap(MapRequestDTO mapRequestDTO) {
@@ -19,7 +19,7 @@ public class MapFactory {
     public static List<MapResponseDTO> convertListToDTOList(List<Map> maps) {
         return maps
                 .stream()
-                .map(map -> new MapResponseDTO(map.getName(), map.getDescription(), map.getPopulation(), map.getSize()))
+                .map(map -> new MapResponseDTO(map.getId(), map.getName(), map.getDescription(), map.getPopulation(), map.getSize()))
                 .collect(Collectors.toList());
     }
 }

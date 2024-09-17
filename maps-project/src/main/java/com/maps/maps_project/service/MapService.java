@@ -31,4 +31,8 @@ public class MapService {
 
         return "Map deleted";
     }
+
+    public MapResponseDTO getMap(String id){
+        return MapFactory.convertMapToDTO(mapRepository.findById(id).orElseThrow());
+    }
 }
