@@ -5,6 +5,7 @@ import com.maps.maps_project.dtos.MapResponseDTO;
 import com.maps.maps_project.factory.MapFactory;
 import com.maps.maps_project.model.Map;
 import com.maps.maps_project.repository.MapRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +27,18 @@ public class MapService {
         return MapFactory.convertListToDTOList(mapRepository.findAll());
     }
 
-    public String deleteMap(String id){
+    public void deleteMap(String id){
         mapRepository.deleteById(id);
-
-        return "Map deleted";
     }
 
     public MapResponseDTO getMap(String id){
         return MapFactory.convertMapToDTO(mapRepository.findById(id).orElseThrow());
+    }
+
+    public MapResponseDTO updateMap(String id, MapRequestDTO mapRequestDTO){
+        Map map = mapRepository.findById(id).orElseThrow();
+        BeanUtils.copyProperties(mapRequestDTO, map);
+
+        return MapFactory.convertMapToDTO(mapRepository.save(map));
     }
 }

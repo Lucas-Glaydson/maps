@@ -35,7 +35,13 @@ public class MapController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteMap(@PathVariable("id") String id) {
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(mapService.deleteMap(id));
+    public ResponseEntity<Object> deleteMap(@PathVariable("id") String id) {
+        mapService.deleteMap(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MapResponseDTO> updateMap(@PathVariable("id") String id, @RequestBody MapRequestDTO mapRequest) {
+        return ResponseEntity.ok(mapService.updateMap(id, mapRequest));
     }
 }
