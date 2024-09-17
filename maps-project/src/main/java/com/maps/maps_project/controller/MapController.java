@@ -35,7 +35,7 @@ public class MapController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteMap(@PathVariable("id") String id) {
+    public ResponseEntity<String> deleteMap(@PathVariable("id") String id) {
         mapService.deleteMap(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

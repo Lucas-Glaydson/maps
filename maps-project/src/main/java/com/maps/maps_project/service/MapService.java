@@ -2,6 +2,7 @@ package com.maps.maps_project.service;
 
 import com.maps.maps_project.dtos.MapRequestDTO;
 import com.maps.maps_project.dtos.MapResponseDTO;
+import com.maps.maps_project.exceptions.MapNotFoundException;
 import com.maps.maps_project.factory.MapFactory;
 import com.maps.maps_project.model.Map;
 import com.maps.maps_project.repository.MapRepository;
@@ -28,15 +29,17 @@ public class MapService {
     }
 
     public void deleteMap(String id){
+        Map map = mapRepository.findById(id).orElseThrow(MapNotFoundException::new);
+
         mapRepository.deleteById(id);
     }
 
     public MapResponseDTO getMap(String id){
-        return MapFactory.convertMapToDTO(mapRepository.findById(id).orElseThrow());
+        return MapFactory.convertMapToDTO(mapRepository.findById(id).orElseThrow(MapNotFoundException::new));
     }
 
     public MapResponseDTO updateMap(String id, MapRequestDTO mapRequestDTO){
-        Map map = mapRepository.findById(id).orElseThrow();
+        Map map = mapRepository.findById(id).orElseThrow(MapNotFoundException::new);
         BeanUtils.copyProperties(mapRequestDTO, map);
 
         return MapFactory.convertMapToDTO(mapRepository.save(map));
